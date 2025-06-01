@@ -1,0 +1,56 @@
+-- Gunakan database yang sudah ada atau buat yang baru jika ini adalah setup pertama
+CREATE DATABASE IF NOT EXISTS db_kantin_telkom;
+USE db_kantin_telkom;
+
+-- Hapus tabel lama jika ada untuk struktur yang bersih
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS barang;
+-- DROP TABLE IF EXISTS kantin_list; -- Sudah tidak ada
+
+-- Tabel untuk Barang (Menu) - TANPA kantin_id
+CREATE TABLE barang (
+    barang_id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_barang VARCHAR(100) NOT NULL,
+    harga_barang DECIMAL(10, 2) NOT NULL,
+    stok_barang INT DEFAULT 100
+);
+
+-- Tabel untuk Pesan/Kritik
+CREATE TABLE messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    pesan TEXT NOT NULL,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabel untuk Pesanan (Sangat Sederhana - Tidak Digunakan di Versi Minimal Ini)
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_details TEXT,
+    total_harga DECIMAL(10, 2),
+    order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Contoh Data Barang (Total 16 menu)
+INSERT INTO barang (nama_barang, harga_barang, stok_barang) VALUES
+('Nasi Ayam Pop', 18000, 50),
+('Soto Betawi', 20000, 40),
+('Gado-Gado Spesial', 15000, 60),
+('Es Campur Pelangi', 12000, 70),
+
+('Paket Nasi Merah Ayam Kukus', 22000, 30),
+('Salad Sayur Organik', 18000, 25),
+('Jus Wortel Tomat', 10000, 40),
+('Karedok', 16000, 50),
+
+('Mie Ayam Bakso Jumbo', 20000, 60),
+('Nasi Uduk Komplit', 17000, 55),
+('Pempek Kapal Selam', 15000, 45),
+('Es Teh Tarik', 8000, 80),
+
+('Es Alpukat Kerok', 15000, 50),
+('Thai Tea Original', 12000, 90),
+('Kopi Susu Gula Aren', 18000, 70),
+('Smoothies Buah Naga', 16000, 60);
